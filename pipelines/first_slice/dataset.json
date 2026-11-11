@@ -1,0 +1,8 @@
+{
+  "dataset": "accounts",
+  "domain": "credit_risk",
+  "source_system": "synthetic_fixture",
+  "contract_version": "1",
+  "schema": "account_id STRING, amount BIGINT, sequence BIGINT, operation STRING",
+  "valid_sql": "account_id IS NOT NULL AND trim(account_id) <> '' AND sequence IS NOT NULL AND operation IN ('UPSERT', 'DELETE') AND (operation = 'DELETE' OR (amount IS NOT NULL AND amount >= 0))"
+}

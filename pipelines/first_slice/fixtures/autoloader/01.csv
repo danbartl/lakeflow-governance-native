@@ -1,0 +1,4 @@
+account_id,amount,sequence,operation
+A,100,10,UPSERT
+B,200,10,UPSERT
+INVALID,-1,10,UPSERT

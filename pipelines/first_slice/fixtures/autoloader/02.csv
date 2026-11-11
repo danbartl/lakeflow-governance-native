@@ -1,0 +1,5 @@
+account_id,amount,sequence,operation
+A,120,30,UPSERT
+A,110,20,UPSERT
+B,,40,DELETE
+C,300,20,UPSERT

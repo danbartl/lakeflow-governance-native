@@ -1,0 +1,7 @@
+{
+  "concept_id": "sandbox.account_balance",
+  "display_name": "Kontobetrag im synthetischen Testbestand",
+  "description": "Betrag eines synthetischen Kontos in ganzzahligen Minor Units.",
+  "synonyms": ["Testkontobetrag"],
+  "body": "# Kontobetrag\n\nNur synthetische Entwicklungsdaten, keine Bankkennzahl.\n\nDas Feld amount ist ein BIGINT in Minor Units. Der Betrag muss fuer UPSERT nichtnegativ sein. DELETE benoetigt keinen Betrag.\n\nBusiness Key: account_id. Ereignisreihenfolge: sequence. Dieses Beispiel hat keine zweite Zeitachse.\n\nVerknuepfung im Testkatalog: accounts_current.amount und accounts_history.amount. Der technische Vertrag liegt in pipelines/first_slice/dataset.json."
+}

@@ -1,0 +1,68 @@
+bundle:
+  name: governance-first-slice
+  engine: direct
+  databricks_cli_version: '>= 1.25.0, <= 1.25.0'
+
+variables:
+  pipeline_sources:
+    description: Explicit source selection; native-tests excludes all file ingestion.
+    default: ./*pipeline.py
+  catalog:
+    description: Existing sandbox Unity Catalog catalog.
+  schema:
+    description: Fresh sandbox schema reserved for this experiment.
+  source_path:
+    description: Dedicated UC volume directory containing only the test CSV deliveries.
+    default: ""
+  owner:
+    description: Accountable data owner (team or group).
+
+resources:
+  pipelines:
+    accounts:
+      name: governance-first-slice
+      catalog: ${var.catalog}
+      schema: ${var.schema}
+      serverless: true
+      channel: CURRENT
+      continuous: false
+      libraries:
+        - glob:
+            include: ${var.pipeline_sources}
+      configuration:
+        slice.source_path: ${var.source_path}
+        slice.owner: ${var.owner}
+      tags:
+        purpose: sandbox-qualification
+
+targets:
+  dev:
+    default: true
+    mode: development
+  native-tests:
+    mode: development
+    variables:
+      pipeline_sources: ./pipeline.py
+    resources:
+      pipelines:
+        accounts:
+          name: governance-first-slice-native-tests
+  bronze-tests:
+    mode: development
+    resources:
+      pipelines:
+        accounts:
+          name: governance-first-slice-bronze-tests
+          channel: PREVIEW
+          configuration:
+            slice.source_path: /Volumes/${var.catalog}/${var.schema}/native_test_inputs/accounts
+            slice.fixture_path: ${workspace.file_path}/fixtures
+  recovery:
+    mode: development
+    resources:
+      pipelines:
+        accounts:
+          name: governance-first-slice-recovery
+          channel: PREVIEW
+          configuration:
+            pipelines.rewind.betaEnabled: 'true'

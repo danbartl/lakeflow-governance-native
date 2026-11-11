@@ -1,0 +1,14 @@
+{
+  "after_01": {
+    "bronze_count": 3,
+    "quarantine_count": 1,
+    "current": [["A", 100], ["B", 200]],
+    "history": [["A", 100, 10, null], ["B", 200, 10, null]]
+  },
+  "after_02": {
+    "bronze_count": 7,
+    "quarantine_count": 1,
+    "current": [["A", 120], ["C", 300]],
+    "history": [["A", 100, 10, 20], ["A", 110, 20, 30], ["A", 120, 30, null], ["B", 200, 10, 40], ["C", 300, 20, null]]
+  }
+}

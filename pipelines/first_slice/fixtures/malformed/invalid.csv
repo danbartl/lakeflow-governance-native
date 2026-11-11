@@ -1,0 +1,2 @@
+account_id,amount,sequence,operation
+BAD,not-an-integer,1,UPSERT
